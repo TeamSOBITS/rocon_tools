@@ -46,7 +46,7 @@ def pid_exists(pid):
         return False
     try:
         os.kill(pid, 0)
-    except OSError, e:
+    except OSError as e:
         return e.errno == errno.EPERM
     else:
         return True
@@ -83,7 +83,7 @@ def wait_pid(pid, timeout=None):
     while 1:
         try:
             retpid, status = waitcall()
-        except OSError, err:
+        except OSError as err:
             if err.errno == errno.EINTR:
                 delay = check_timeout(delay)
                 continue

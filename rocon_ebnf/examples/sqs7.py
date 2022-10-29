@@ -1,4 +1,4 @@
-#!c:/python26/python.exe
+#!/usr/bin/env python3
 import sys,rp
 
 rule=['init sqs_selection=[] ',
@@ -18,14 +18,14 @@ rule=['init sqs_selection=[] ',
       '         |   "="  ',
       '         |   ">"  ',
       '         |   "<"  ',
-	  'car  ::=  r"[^\']" ',
+      'car  ::=  r"[^\']" ',
       'numeric::= r"[0-9]"* ',
-	  'fileid::= r"\S"* ']
+      'fileid::= r"\S"* ']
 parms=' '.join(sys.argv[1:])
 
 cmp=rp.match(rule,parms)
 if cmp==None:
-	print "Error in parsing:"
+    print ("Error in parsing:")
 else:
     id=None
     try:
@@ -73,9 +73,9 @@ else:
                 for col in cmp.sqs_selection:
                     c=columns[col]
                     txt+=l[c[0]:c[1]]+' '
-                print txt
-    except Exception,e:
-	    print e
+                print (txt)
+    except Exception as e:
+        print (e)
     else:
         if id!=None: id.close()
         

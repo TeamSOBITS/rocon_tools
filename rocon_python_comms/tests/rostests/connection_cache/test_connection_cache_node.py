@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import multiprocessing
 import threading
@@ -151,8 +151,8 @@ class TestConnectionCacheNode(unittest.TestCase):
             if test:  # break right away if found
                 break
         if not test:
-            print "Expected : name:{name} type:{type} node:{node} topic_type:{type_info}".format(name='/chatter', type=conn_type, node=node_name, type_info='std_msgs/String')
-            print "NOT FOUND IN LIST : {0}".format(topicq_clist)
+            print ("Expected : name:{name} type:{type} node:{node} topic_type:{type_info}".format(name='/chatter', type=conn_type, node=node_name, type_info='std_msgs/String'))
+            print ("NOT FOUND IN LIST : {0}".format(topicq_clist))
         return test
 
     def chatter_chan_detected(self, topicq_cdict, node_name):
@@ -165,8 +165,8 @@ class TestConnectionCacheNode(unittest.TestCase):
             and len([n for n in topicq_cdict['/chatter'].nodes if n[0].startswith(node_name)]) > 0  # sometime the node gets suffixes with uuid
         )
         if not test:
-            print "Expected : name:{name} type:{type} node:{node}".format(name='/chatter', node=node_name, type='std_msgs/String')
-            print "NOT FOUND IN DICT : {0}".format(topicq_cdict)
+            print ("Expected : name:{name} type:{type} node:{node}".format(name='/chatter', node=node_name, type='std_msgs/String'))
+            print ("NOT FOUND IN DICT : {0}".format(topicq_cdict))
         return test
 
     def string_detected(self, topicq_clist, conn_type, node_name):
@@ -183,8 +183,8 @@ class TestConnectionCacheNode(unittest.TestCase):
             if test:  # break right away if found
                 break
         if not test:
-            print "Expected : name:{name} type:{type} node:{node} topic_type:{type_info}".format(name='/chatter', type=conn_type, node=node_name, type_info='std_msgs/String')
-            print "NOT FOUND IN LIST : {0}".format(topicq_clist)
+            print ("Expected : name:{name} type:{type} node:{node} topic_type:{type_info}".format(name='/chatter', type=conn_type, node=node_name, type_info='std_msgs/String'))
+            print ("(NOT FOUND IN LIST : {0})".format(topicq_clist))
         return test
 
     def string_chan_detected(self, topicq_cdict, node_name):
@@ -197,8 +197,8 @@ class TestConnectionCacheNode(unittest.TestCase):
             and len([n for n in topicq_cdict['/test/string'].nodes if n[0].startswith(node_name)]) > 0  # sometime the node gets suffixes with uuid
         )
         if not test:
-            print "Expected : name:{name} type:{type} node:{node}".format(name='/test/string', node=node_name, type='std_msgs/String')
-            print "NOT FOUND IN DICT : {0}".format(topicq_cdict)
+            print ("Expected : name:{name} type:{type} node:{node}".format(name='/test/string', node=node_name, type='std_msgs/String'))
+            print ("NOT FOUND IN DICT : {0}".format(topicq_cdict))
         return test
 
     def add_two_ints_detected(self, svcq_clist, conn_type, node_name):
@@ -215,8 +215,8 @@ class TestConnectionCacheNode(unittest.TestCase):
             if test:  # break right away if found
                 break
         if not test:
-            print "Expected : name:{name} type:{type} node:{node}".format(name='/add_two_ints', type=conn_type, node=node_name)
-            print "NOT FOUND IN LIST : {0}".format(svcq_clist)
+            print ("Expected : name:{name} type:{type} node:{node}".format(name='/add_two_ints', type=conn_type, node=node_name))
+            print ("NOT FOUND IN LIST : {0}".format(svcq_clist))
         return test
 
     def add_two_ints_chan_detected(self, svcq_cdict, node_name):
@@ -230,8 +230,8 @@ class TestConnectionCacheNode(unittest.TestCase):
             and len([n for n in svcq_cdict['/add_two_ints'].nodes if n[0].startswith(node_name)]) > 0  # sometime the node gets suffixes with uuid
         )
         if not test:
-            print "Expected : name:{name} node:{node}".format(name='/chatter', node=node_name)
-            print "NOT FOUND IN DICT : {0}".format(svcq_cdict)
+            print ("Expected : name:{name} node:{node}".format(name='/chatter', node=node_name))
+            print ("NOT FOUND IN DICT : {0}".format(svcq_cdict))
         return test
 
     def equalMasterSystemState(self, proxySS):
@@ -240,19 +240,19 @@ class TestConnectionCacheNode(unittest.TestCase):
         same = True
         # masterSS set included in proxySS set
         for idx, t in enumerate(masterSS):  # connection type
-            print "MASTER SYSTEM STATE CONNECTION TYPE {0}".format(t)
-            print " -> PROXY SYSTEM STATE CONNECTION TYPE {0}".format(proxySS[idx])
+            print ("MASTER SYSTEM STATE CONNECTION TYPE {0}".format(t))
+            print (" -> PROXY SYSTEM STATE CONNECTION TYPE {0}".format(proxySS[idx]))
             proxySS_names = [c[0] for c in proxySS[idx]]
             for c in t:  # connection list [name, [nodes]]
-                print "MASTER SYSTEM STATE CONNECTION {0}".format(c)
-                print " -> CHECK {0} in PROXY NAMES {1}".format(c[0], proxySS_names)
+                print ("MASTER SYSTEM STATE CONNECTION {0}".format(c))
+                print (" -> CHECK {0} in PROXY NAMES {1}".format(c[0], proxySS_names))
                 same = same and c[0] in proxySS_names
                 if not same:
                     print("ERROR : {0} not in {1}".format(c[0], proxySS_names))
                     break
                 proxySS_conn_nodes = [fpc for pc in proxySS[idx] if c[0] == pc[0] for fpc in pc[1]]
                 for n in c[1]:
-                    print " -> CHECK {0} in PROXY NODES {1}".format(n, proxySS_conn_nodes)
+                    print (" -> CHECK {0} in PROXY NODES {1}".format(n, proxySS_conn_nodes))
                     same = same and n in proxySS_conn_nodes
                     if not same:
                         print("ERROR : {0} not in {1}".format(n, proxySS_conn_nodes))
@@ -260,19 +260,19 @@ class TestConnectionCacheNode(unittest.TestCase):
 
         # proxySS set included in masterSS set
         for idx, t in enumerate(proxySS):  # connection type
-            print "PROXY SYSTEM STATE CONNECTION TYPE {0}".format(t)
-            print " -> MASTER SYSTEM STATE CONNECTION TYPE {0}".format(masterSS[idx])
+            print ("PROXY SYSTEM STATE CONNECTION TYPE {0}".format(t))
+            print (" -> MASTER SYSTEM STATE CONNECTION TYPE {0}".format(masterSS[idx]))
             masterSS_names = [c[0] for c in masterSS[idx]]
             for c in t:  # connection list [name, [nodes]]
-                print "PROXY SYSTEM STATE CONNECTION {0}".format(c)
-                print " -> CHECK {0} in MASTER NAMES {1}".format(c[0], masterSS_names)
+                print ("PROXY SYSTEM STATE CONNECTION {0}".format(c))
+                print (" -> CHECK {0} in MASTER NAMES {1}".format(c[0], masterSS_names))
                 same = same and c[0] in masterSS_names
                 if not same:
                     print("ERROR : {0} not in {1}".format(c[0], masterSS_names))
                     break
                 masterSS_conn_nodes = [fmc for mc in masterSS[idx] if c[0] == mc[0] for fmc in mc[1]]
                 for n in c[1]:
-                    print " -> CHECK {0} in MASTER NODES {1}".format(n, masterSS_conn_nodes)
+                    print (" -> CHECK {0} in MASTER NODES {1}".format(n, masterSS_conn_nodes))
                     same = same and n in masterSS_conn_nodes
                     if not same:
                         print("ERROR : {0} not in {1}".format(n, masterSS_conn_nodes))
@@ -285,9 +285,9 @@ class TestConnectionCacheNode(unittest.TestCase):
         same = True
         # proxyTT set included in masterTT set
         for pt in proxyTT:  # [topic_name, topic_type]
-            print "PROXY SYSTEM STATE TOPIC {0}".format(pt)
+            print ("PROXY SYSTEM STATE TOPIC {0}".format(pt))
             mtl = [mt for mt in masterTT if mt[0] == pt[0]]
-            print " -> MASTER SYSTEM STATE TOPIC {0}".format(mtl)
+            print (" -> MASTER SYSTEM STATE TOPIC {0}".format(mtl))
             same = same and len(mtl) == 1
             if not same:
                 print("ERROR : {1} has more or less than 1 element".format(pt, mtl))
@@ -301,9 +301,9 @@ class TestConnectionCacheNode(unittest.TestCase):
 
             # masterTT set included in proxyTT set
             for mt in masterTT:  # [topic_name, topic_type]
-                print "MASTER SYSTEM STATE TOPIC {0}".format(mt)
+                print ("MASTER SYSTEM STATE TOPIC {0}".format(mt))
                 ptl = [pt for pt in proxyTT if pt[0] == mt[0]]
-                print " -> PROXY SYSTEM STATE TOPIC {0}".format(ptl)
+                print (" -> PROXY SYSTEM STATE TOPIC {0}".format(ptl))
                 same = same and len(ptl) == 1
                 if not same:
                     print("ERROR : {1} has more or less than 1 element".format(mt, ptl))

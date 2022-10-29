@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # License: BSD
 #   https://raw.github.com/robotics-in-concert/rocon_tools/license/LICENSE
@@ -31,7 +31,7 @@ import sys
 import subprocess
 import tempfile
 import time
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 from .exceptions import UnsupportedTerminal
 from . import utils

@@ -27,6 +27,7 @@ manipulation module.
 
 import os
 import yaml
+from ansible.module_utils.six import iteritems
 
 # Local imports
 
@@ -45,7 +46,7 @@ def load_rules_into_dictionary():
     """
     yaml_filename = os.path.join(os.path.dirname(__file__), 'rules', 'rules.yaml')
     with open(yaml_filename) as f:
-        yaml_rules = yaml.load(f)
+        yaml_rules = yaml.load(f, Loader=yaml.SafeLoader)
     return yaml_rules
 
 
@@ -88,7 +89,7 @@ def walk_yaml_rules(name, root=None):
     yield (name, groups.keys(), elements)
     if not groups.keys():
         return
-    for key, value in groups.iteritems():
+    for key, value in iteritems(groups):
         for x in walk_yaml_rules(name + '/' + key, value):
             yield x
     return
@@ -108,7 +109,7 @@ def load_ebnf_rules():
         yaml_rule_sets.update(yaml_rule_set)
     # special case, add the names as an empty list
     yaml_rule_sets['name'] = []
-    for yaml_rule_set_name, yaml_rule_set in yaml_rule_sets.iteritems():
+    for yaml_rule_set_name, yaml_rule_set in iteritems(yaml_rule_sets):
         rules = []
         #rules.append('option verbose')
         rules.append('init %s_list=[]' % yaml_rule_set_name)

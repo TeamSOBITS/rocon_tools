@@ -90,7 +90,7 @@ class ServicePairClient(object):
 
       .. code-block:: python
 
-          #!/usr/bin/env python
+          #!/usr/bin/env python3
 
           import rospy
           from chatter.msg import ChatterRequest, ChatterResponse, ChatterPair
@@ -122,7 +122,7 @@ class ServicePairClient(object):
 
       .. code-block:: python
 
-         #!/usr/bin/env python
+         #!/usr/bin/env python3
 
          import rospy
          from chatter.msg import ChatterRequest, ChatterResponse, ChatterPair

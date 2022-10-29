@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # License: BSD
 #   https://raw.github.com/robotics-in-concert/rocon_tools/license/LICENSE
@@ -134,7 +134,7 @@ def test_message_to_string():
 # #as re module, if the result object is None, 
 # # the parsing is unsuccessful
 # if cmp==None:
-#     print "Error in parsing:"   
+#     print ("Error in parsing:"  ) 
 # else:
 #     #
 #     # now, to get values from parsing, 

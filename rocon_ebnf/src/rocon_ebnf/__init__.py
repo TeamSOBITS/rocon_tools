@@ -6,4 +6,4 @@
 # Imports
 ##############################################################################
 
-import rule_parser
+from .rule_parser import *

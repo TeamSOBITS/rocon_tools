@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import multiprocessing
 import threading
@@ -147,8 +147,8 @@ class TestConnectionCacheNodeActions(unittest.TestCase):
             and len([n for n in actionq_cdict['/fibonacci'].nodes if n[0].startswith(node_name)]) > 0  # sometime the node gets suffixes with uuid
         )
         if not test:
-            print "Expected : name:{name} type:{type} node:{node}".format(name='/fibonacci', node=node_name, type='actionlib_tutorials/FibonacciActionGoal')
-            print "NOT FOUND IN DICT : {0}".format(actionq_cdict)
+            print ("Expected : name:{name} type:{type} node:{node}".format(name='/fibonacci', node=node_name, type='actionlib_tutorials/FibonacciActionGoal'))
+            print ("NOT FOUND IN DICT : {0}".format(actionq_cdict))
         return test
 
     def test_detect_action_server_added_lost(self,):

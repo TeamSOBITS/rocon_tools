@@ -20,11 +20,22 @@ compare rocon uri strings.
 ##############################################################################
 
 # this needs updating to urllib.parse for python3
-import urlparse
+from urllib.parse import urlparse
 # register properties of the rocon scheme, otherwise fragments don't get allocated properly, refer to:
 #   http://stackoverflow.com/questions/1417958/parse-custom-uris-with-urlparse-python
-getattr(urlparse, 'uses_fragment').append('rocon')
-getattr(urlparse, 'uses_netloc').append('rocon')
+# getattr(urlparse, 'uses_fragment').append('rocon')
+# getattr(urlparse, 'uses_netloc').append('rocon')
+
+
+
+
+
+
+
+
+
+#-----------------------------------
+
 #getattr(urlparse, 'uses_params').append('rocon')
 #getattr(urlparse, 'uses_query').append('rocon')
 #getattr(urlparse, 'uses_relative').append('rocon')
@@ -34,7 +45,7 @@ from collections import namedtuple
 
 # Local imports
 from .exceptions import RoconURIValueError
-import rules
+from .rules import *
 
 ##############################################################################
 # Public Methods
@@ -181,7 +192,7 @@ class RoconURI(object):
     ####################
     # Class Fields
     ####################
-    ebnf_rules = rules.load_ebnf_rules()
+    ebnf_rules = load_ebnf_rules()
 
     # These are descriptors - required to be defined in the class area and instantiated separately in __init__
     hardware_platform     = RoconURIField("hardware_platform", ebnf_rules["hardware_platform"])          # noqa @IgnorePep8
@@ -199,7 +210,8 @@ class RoconURI(object):
         :param str rocon_uri_string: a rocon uri in string format.
         :raises: :exc:`rocon_uri.exceptions.RoconURIValueError` if either rocon_uri string is not valid
         """
-        parsed_url = urlparse.urlparse(rocon_uri_string)
+        # parsed_url = urlparse.urlparse(rocon_uri_string)
+        parsed_url = urlparse(rocon_uri_string)
         if parsed_url.scheme != 'rocon':
             raise RoconURIValueError("uri scheme '%s' != 'rocon'" % parsed_url.scheme)
         self.concert_name = parsed_url.netloc

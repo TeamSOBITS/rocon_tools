@@ -562,9 +562,10 @@ def import_string(import_name, silent=False):
             modname = module + '.' + obj
             __import__(modname)
             return sys.modules[modname]
-    except ImportError, e:
+    except ImportError as e:
         if not silent:
-            raise ImportStringError(import_name, e), None, sys.exc_info()[2]
+            if sys.version_info.major == 2:
+                exec("raise ImportStringError(import_name, e), None, sys.exc_info()[2]")
 
 class ImportStringError(ImportError):
     """Provides information about a failed :func:`import_string` attempt.
@@ -623,7 +624,7 @@ def format_config(config, _lvl=0):
     return buf
 
 def print_config(config):
-    print format_config(config)
+    print (format_config(config))
 
 def obj_by_ref(o, path):
     for s in path.split("."):

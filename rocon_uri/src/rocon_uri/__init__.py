@@ -20,7 +20,8 @@ describe rocon devices and robots as resources in the rocon framework.
 
 from .exceptions import RoconURIValueError
 from .platform import generate_platform_rocon_uri
-from uri import parse, is_compatible, RoconURI
+from .uri import parse, is_compatible, RoconURI
+from .rules import *
 
 ##############################################################################
 # Constants

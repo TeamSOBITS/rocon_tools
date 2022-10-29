@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # License: BSD
 #   https://raw.github.com/robotics-in-concert/rocon_tools/license/LICENSE
@@ -25,7 +25,7 @@ This module provides the context for a roslaunch configuration.
 import os
 import rocon_console.console as console
 import rocon_python_utils
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 from .exceptions import InvalidRoconLauncher
 

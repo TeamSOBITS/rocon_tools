@@ -94,7 +94,7 @@ class _Tokenizer:
             this = self.string[self.index]
         except Exception:
             this=''
-        #print 'peeked:',this
+        #print ('peeked:',this)
         return this
     def read(self):
         """ read current character, and increment cursor """
@@ -158,8 +158,8 @@ class _RpRule:
         if len1<len2:
             self.rp.stringError=('-'*(_tk.maxscan)+'^')
             if self.rp.verbose: 
-                print _tk.string
-                print self.rp.stringError
+                print (_tk.string)
+                print (self.rp.stringError)
         else:
             for post in self.rp.code_post:
                 if self.rp.execute_code:
@@ -172,7 +172,7 @@ class _RpRule:
         return len1>=len2
     def _parse(self,_tk,mult='',n_val=None):
         """ parse the string against the rule """
-        if self.rp.verbose: print _tk.getIndent(True)+'Parsing rule: "'+self.name+'" for string:"'+_tk.getRemaining()+'"'
+        if self.rp.verbose: print (_tk.getIndent(True)+'Parsing rule: "'+self.name+'" for string:"'+_tk.getRemaining()+'"')
         ret=-1
         _top=_tk.index
         _top2=_tk.removeBlanks()
@@ -214,7 +214,7 @@ class _RpRule:
             if ret>0: _retindent='<'
         elif ret<0:
             _tk.reset(_top)
-        if self.rp.verbose: print _tk.getIndent(False,_retindent)+'Parsed rule :"'+self.name+'" - value="'+_retstr+'"'
+        if self.rp.verbose: print (_tk.getIndent(False,_retindent)+'Parsed rule :"'+self.name+'" - value="'+_retstr+'"')
         return ret
 
 class _RpDefinition:
@@ -254,8 +254,8 @@ class _RpDefinition:
                 ret=d._parse(_tk,mult,n_val)
                 if ret>0:
                     fullret=max(fullret,ret)
-            except IndexError,err:
-                print '+++',err
+            except IndexError as err:
+                print ('+++',err)
                 ret=-1
                 _tk.getIndent(False) # Just to adjust indentation
                 break
@@ -301,7 +301,7 @@ class _RpDefinition:
             if key.find('"..."')>=2:
                 m2=re.match('"(.)"\.{3}"(.)"',key)
                 if m2==None:
-                    raise Exception , 'Invalid expression:'+key
+                    raise Exception('Invalid expression:'+key)
                 a1=_RpRegular('['+m2.group(1)+'-'+m2.group(2)+']',self.rp)
             #
             # "xxx"  == Terminal 
@@ -359,14 +359,14 @@ class _RpDefinition:
                 if self.rp.vals.has_key(_var):
                     cc=_deb+self.rp.vals.get(_var)+_fin
                 else:
-                    raise Exception,_var+' not set'
+                    raise Exception(_var+' not set')
                 m=re.match(r'^([^\$]*)\$([A-Za-z0-9]*)(.*)$',cc,re.DOTALL)  #0.91
             if self.rp.execute_code:
                 try:
                     exec(cc,self.rp.vals)
-                except Exception,error:
-                    print '+++',error
-                    print '+++Code=',cc
+                except Exception as error:
+                    print ('+++',error)
+                    print ('+++Code=',cc)
             self.rp.code_array.append(cc)
 
 class _RpTerminal:
@@ -392,7 +392,7 @@ class _RpTerminal:
         self.min=min
     def _parse(self,_tk,mult='',n_val=None):
         """ parse the terminal """
-        if self.rp.verbose: print _tk.getIndent(True)+'Parsing terminal:"'+self.terminal+'" for string:"'+_tk.getRemaining()+'"'
+        if self.rp.verbose: print (_tk.getIndent(True)+'Parsing terminal:"'+self.terminal+'" for string:"'+_tk.getRemaining()+'"')
         ret=-1
         _top=_tk.index
         _top2=_tk.removeBlanks()
@@ -407,7 +407,7 @@ class _RpTerminal:
         if min>0 and min<len(self.terminal):
             ntok=_tk.peek().strip()
             nterm=self.terminal[min].strip()
-            #print string.ascii_letters.find(ntok)
+            #print (string.ascii_letters.find(ntok))
             # if next car of terminal diff of next car of token !!
             if ntok!='' and nterm!='' and string.ascii_letters.find(ntok)>-1 and ntok!=nterm:
                 ret=-1
@@ -418,7 +418,7 @@ class _RpTerminal:
         if ret>0: 
             _retstr=_tk.getString(_top2)
             _retindent='<'
-        if self.rp.verbose: print _tk.getIndent(False,_retindent)+'Parsed terminal :"'+self.terminal+'" - value="'+_retstr+'"'
+        if self.rp.verbose: print (_tk.getIndent(False,_retindent)+'Parsed terminal :"'+self.terminal+'" - value="'+_retstr+'"')
         return ret
 
 class _RpRegular:
@@ -430,9 +430,9 @@ class _RpRegular:
         self.regular=re.compile(term)
     def _parse(self,_tk,mult='',n_val=None):
         """ parsing string against reg expression """
-        if self.rp.verbose: print _tk.getIndent(True)+'Parsing regular:"'+self.source+'" for string:"'+_tk.getRemaining()+'"'
+        if self.rp.verbose: print (_tk.getIndent(True)+'Parsing regular:"'+self.source+'" for string:"'+_tk.getRemaining()+'"')
         if n_val!=None and n_val==_tk.peek(): 
-            if self.rp.verbose: print _tk.getIndent(False)+'Parsed regular :"'+self.source+'" - value=""'
+            if self.rp.verbose: print (_tk.getIndent(False)+'Parsed regular :"'+self.source+'" - value=""')
             return -1
         ret=-1
         min=0
@@ -485,7 +485,7 @@ class _RpRegular:
         if ret>0: 
             _retstr=_tk.getString(_top)
             _retindent='<'
-        if self.rp.verbose: print _tk.getIndent(False,_retindent)+'Parsed regular :"'+self.source+'" - value="'+_retstr+'"'
+        if self.rp.verbose: print (_tk.getIndent(False,_retindent)+'Parsed regular :"'+self.source+'" - value="'+_retstr+'"')
         return ret
     
 class RP:
@@ -694,13 +694,13 @@ if __name__=='__main__':
     r=compile(rule)
     for st in stringsToTry:
         ok_ko=(r.match(st)!=None)
-        print '\n---------', st, '------------',ok_ko
+        print ('\n---------', st, '------------',ok_ko)
         if not ok_ko:
-            print '"'+st+'"'
-            print " "+r.stringError
+            print ('"'+st+'"')
+            print (" "+r.stringError)
         else:
-            print "range=",r.loc_range
-            print "string=",r.loc_string
+            print ("range=",r.loc_range)
+            print ("string=",r.loc_string)
 
 
 

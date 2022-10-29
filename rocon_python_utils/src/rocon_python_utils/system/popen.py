@@ -60,7 +60,6 @@ class Popen(object):
             '_external_preexec_fn',
             '_shell',
             '_env',
-            'terminate'
         ]
 
     def __init__(self, popen_args, shell=False, preexec_fn=None, postexec_fn=None, env=None):

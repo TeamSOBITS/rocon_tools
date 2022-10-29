@@ -1,4 +1,4 @@
-#!c:/python26/python.exe
+#!/usr/bin/env python3
 import sys,rp
 
 rule=['init sqs_range="" ',
@@ -10,27 +10,27 @@ rule=['init sqs_range="" ',
       '      |   n "-" m                @sqs_range=[$n-1,$m] ',
       '      |   n "." m                @sqs_range=[$n-1,($m+$n-1)] ',
       '      |   n "-"                  @sqs_range=[$n-1,999] ',
-	  'n    ::=  r"[0-9]"*  ',
-	  'm    ::=  r"[0-9]"* ',	
+      'n    ::=  r"[0-9]"*  ',
+      'm    ::=  r"[0-9]"* ',    
       'value::=  "\'" car* "\'"         @sqs_valtype=1  @sqs_value="$car" ',
       '      |   numeric                @sqs_valtype=2  @sqs_value=numeric ',
       'operator::=  LIKE ',
       '         |   "="  ',
       '         |   ">"  ',
       '         |   "<"  ',
-	  'car  ::=  r"[^\']" ',
+      'car  ::=  r"[^\']" ',
       'numeric::= r"[0-9]"* ',
-	  'fileid::= r"\S"* ']
+      'fileid::= r"\S"* ']
 parms=' '.join(sys.argv[1:])
 
 cmp=rp.match(rule,parms)
 if cmp==None:
-	print "Error in parsing:"
+    print ("Error in parsing:")
 else:
     id=None
     try:
-	   id=open(cmp.sqs_fileid)
-	   for l in id.readlines():
+       id=open(cmp.sqs_fileid)
+       for l in id.readlines():
             data=l[cmp.sqs_range[0]:cmp.sqs_range[1]]
             found=False
             if cmp.sqs_valtype==1:
@@ -55,9 +55,9 @@ else:
                 except:
                     pass
             if found:
-                print l[:-1]
-    except Exception,e:
-	    print e
+                print (l[:-1])
+    except Exception as e:
+        print (e)
     else:
         if id!=None: id.close()
         

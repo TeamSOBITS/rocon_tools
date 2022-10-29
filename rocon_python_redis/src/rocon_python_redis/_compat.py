@@ -3,7 +3,7 @@ import sys
 
 
 if sys.version_info[0] < 3:
-    from urlparse import urlparse
+    from urllib.parse import urlparse
     from itertools import imap, izip
     from string import letters as ascii_letters
     try:

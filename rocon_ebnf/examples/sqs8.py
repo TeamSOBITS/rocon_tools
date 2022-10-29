@@ -1,11 +1,12 @@
-#!c:/python26/python.exe
-import sys,rp
+#!/usr/bin/env python3
+
+import sys, urllib.robotparser
 
 def process(data,cols,col,ope,val):
     ret=False
     indexes=cols[col]
     data=data[indexes[0]:indexes[1]]
-    #print data,ope,val
+    #print (data,ope,val)
     if isinstance(val,int):
         exec("ret=("+data+ope+str(val)+")")
     else:
@@ -31,7 +32,7 @@ rule=['option norun',            #norun, means that lines of code
       'cols     ::=  "," col             @sqs_selection.append("$col")',
       'col      ::=  r"[A-Za-z0-9]"*  ',
 
-	  'fileid::= r"\S"* ',
+      'fileid::= r"\S"* ',
       
       'condition ::=  cond1  cond2* ',
       'cond2     ::=  op_or  cond1  ',
@@ -65,7 +66,7 @@ parms=' '.join(sys.argv[1:])
 
 cmp=rp.match(rule,parms)
 if cmp==None:
-	print "Error in parsing:"
+    print ("Error in parsing:")
 else:
     #
     #cmp.code contains the complete lines of code of the parsing
@@ -105,9 +106,9 @@ else:
                 for col in sqs_selection:
                     c=cols[col]
                     txt+=data[c[0]:c[1]]+' '
-                print txt
-    except Exception,e:
-	    print e
+                print (txt)
+    except Exception as e:
+        print (e)
     else:
         if id!=None: id.close()
         
